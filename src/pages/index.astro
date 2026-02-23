@@ -74,14 +74,33 @@ import StatusBar from '../components/editor/StatusBar.astro';
         lastLine.style.opacity = '1';
       }, delay);
       
-      // Animate progress bar from 0 to 100%
+      // Animate progress bar from 0 to target progress
       setTimeout(() => {
         if (progressBar) {
+          const targetProgress = progressBar.getAttribute('data-target-progress') || '100';
           progressBar.style.width = '0%';
           setTimeout(() => {
-            progressBar.style.transition = 'width 2s ease-out';
-            progressBar.style.width = '100%';
+            progressBar.style.transition = 'width 2.5s ease-out';
+            progressBar.style.width = targetProgress + '%';
           }, 100);
+        }
+        // Animate progress text from 0 to target
+        if (progressText) {
+          const targetProgress = parseInt(progressBar?.getAttribute('data-target-progress') || '100');
+          let currentProgress = 0;
+          const duration = 2500; // 2.5s
+          const interval = 30; // Update every 30ms
+          const steps = duration / interval;
+          const increment = targetProgress / steps;
+          
+          const updateProgress = setInterval(() => {
+            currentProgress += increment;
+            if (currentProgress >= targetProgress) {
+              currentProgress = targetProgress;
+              clearInterval(updateProgress);
+            }
+            progressText.textContent = Math.floor(currentProgress) + '%';
+          }, interval);
         }
       }, 500);
       
