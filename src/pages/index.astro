@@ -1,13 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BootSequence from '../components/bootup/BootSequence.astro';
+import ActivityBar from '../components/editor/ActivityBar.astro';
+import Sidebar from '../components/editor/Sidebar.astro';
+import TabBar from '../components/editor/TabBar.astro';
+import Breadcrumb from '../components/editor/Breadcrumb.astro';
+import CodeEditor from '../components/editor/CodeEditor.astro';
+import Terminal from '../components/editor/Terminal.astro';
+import AIPanel from '../components/editor/AIPanel.astro';
+import StatusBar from '../components/editor/StatusBar.astro';
 ---
 
 <BaseLayout title="IDE Portfolio Bootup">
-  <div class="relative flex h-screen grow flex-col justify-center items-center p-4 md:p-8 lg:p-12 z-10">
+  <!-- Bootup Screen -->
+  <div id="bootup-screen" class="relative flex h-screen grow flex-col justify-center items-center p-4 md:p-8 lg:p-12 z-10 transition-opacity duration-700 ease-out">
     <div class="layout-content-container flex flex-col w-full max-w-[800px] gap-8 relative">
       <BootSequence />
     </div>
+  </div>
+  
+  <!-- IDE Content (initially hidden) -->
+  <div id="ide-content" class="fixed inset-0 z-0 opacity-0 transition-opacity duration-700 ease-out" style="display: none;">
+    <div class="flex h-screen w-screen overflow-hidden bg-background-dark">
+      <ActivityBar />
+      <Sidebar />
+      <div class="flex flex-col flex-1 min-w-0">
+        <TabBar />
+        <Breadcrumb />
+        <div class="flex flex-1 overflow-hidden">
+          <div class="flex flex-col flex-1 min-w-0">
+            <CodeEditor />
+            <Terminal />
+          </div>
+          <AIPanel />
+        </div>
+      </div>
+    </div>
+    <StatusBar />
   </div>
   
   <script>
@@ -15,6 +44,8 @@ import BootSequence from '../components/bootup/BootSequence.astro';
       const lines = document.querySelectorAll('.terminal-line');
       const progressBar = document.querySelector('.progress-fill') as HTMLElement;
       const progressText = document.querySelector('.progress-percent') as HTMLElement;
+      const bootupScreen = document.getElementById('bootup-screen') as HTMLElement;
+      const ideContent = document.getElementById('ide-content') as HTMLElement;
       
       // Hide all lines initially
       lines.forEach(line => {
@@ -39,20 +70,34 @@ import BootSequence from '../components/bootup/BootSequence.astro';
         lastLine.style.opacity = '1';
       }, delay);
       
-      // Animate progress bar from 0 to 85%
+      // Animate progress bar from 0 to 100%
       setTimeout(() => {
         if (progressBar) {
           progressBar.style.width = '0%';
           setTimeout(() => {
             progressBar.style.transition = 'width 2s ease-out';
-            progressBar.style.width = '85%';
+            progressBar.style.width = '100%';
           }, 100);
         }
       }, 500);
       
-      // Redirect after 4 seconds
+      // Fade out bootup and fade in IDE after 4 seconds
       setTimeout(() => {
-        window.location.href = '/editor';
+        // Fade out bootup screen
+        if (bootupScreen) {
+          bootupScreen.style.opacity = '0';
+          setTimeout(() => {
+            bootupScreen.style.display = 'none';
+          }, 700); // Wait for transition to complete
+        }
+        
+        // Fade in IDE content
+        if (ideContent) {
+          ideContent.style.display = 'block';
+          // Force reflow to ensure transition works
+          void ideContent.offsetWidth;
+          ideContent.style.opacity = '1';
+        }
       }, 4000);
     });
   </script>
