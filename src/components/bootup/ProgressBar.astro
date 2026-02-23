@@ -1,0 +1,52 @@
+---
+interface Props {
+  progress: number;
+}
+
+const { progress } = Astro.props;
+---
+
+<div class="mt-6 space-y-2">
+  <!-- Header Row -->
+  <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-mono">
+    <span>Boot Sequence</span>
+    <span>{progress}%</span>
+  </div>
+  
+  <!-- Progress Bar Track with Grid Pattern -->
+  <div class="relative h-6 bg-slate-200 dark:bg-slate-800 rounded overflow-hidden border border-slate-300 dark:border-slate-700">
+    <!-- Grid Pattern Background -->
+    <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(90deg, transparent 95%, rgba(148, 163, 184, 0.3) 95%); background-size: 20px 100%;"></div>
+    
+    <!-- Blue Fill with Striped Animation -->
+    <div 
+      class="h-full bg-gradient-to-r from-blue-600 to-blue-500 transition-all duration-500 ease-out relative overflow-hidden"
+      style={`width: ${progress}%`}
+    >
+      <!-- Striped Animation Overlay -->
+      <div class="absolute inset-0" style="background-image: linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.15) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.15) 75%, rgba(255,255,255,0.15) 100%); background-size: 1rem 1rem; animation: progress-stripes 1s linear infinite;"></div>
+    </div>
+  </div>
+  
+  <!-- Footer Row -->
+  <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-mono">
+    <span>EST. TIME REMAINING: 0.4s</span>
+  </div>
+  
+  <!-- System Info -->
+  <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-mono pt-2 border-t border-slate-200 dark:border-slate-800">
+    <span>Mem: 64GB / Threads: 12</span>
+    <span>Build: 2023.10.24-RC2</span>
+  </div>
+</div>
+
+<style>
+  @keyframes progress-stripes {
+    from {
+      background-position: 1rem 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+</style>

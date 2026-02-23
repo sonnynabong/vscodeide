@@ -1,0 +1,19 @@
+---
+interface Props {
+  icon: string;
+  text: string;
+  highlightText?: string;
+  status?: "ok" | "busy" | "none";
+}
+
+const { icon, text, highlightText, status = "none" } = Astro.props;
+---
+
+<div class="flex items-start gap-3 group">
+  <span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg">{icon}</span>
+  <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <span class="text-slate-700 dark:text-slate-300">&gt; {text}{highlightText && <span class="text-primary"> {highlightText}</span>}...</span>
+    {status === "ok" && <span class="text-green-500 text-xs font-bold px-2 py-0.5 bg-green-500/10 rounded">[ OK ]</span>}
+    {status === "busy" && <span class="text-yellow-500 text-xs font-bold px-2 py-0.5 bg-yellow-500/10 rounded animate-pulse">[ BUSY ]</span>}
+  </div>
+</div>
