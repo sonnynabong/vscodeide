@@ -1,0 +1,85 @@
+---
+---
+
+<div class="w-80 h-full bg-sidebar-bg border-l border-[#324d67] flex flex-col flex-shrink-0">
+  <!-- Header -->
+  <div class="h-9 bg-editor-bg flex items-center px-4 border-b border-[#324d67]">
+    <span class="material-symbols-outlined text-sm text-primary mr-2">smart_toy</span>
+    <span class="text-sm font-semibold text-white">Portfolio AI</span>
+  </div>
+  
+  <!-- Chat Messages -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-4">
+    <!-- User Message 1 -->
+    <div class="flex gap-3">
+      <div class="w-6 h-6 rounded-full bg-[#233648] flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-xs">person</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm text-white">How do I contact you?</p>
+      </div>
+    </div>
+    
+    <!-- AI Message 1 -->
+    <div class="flex gap-3">
+      <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-xs text-primary">smart_toy</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm text-[#b0c4de]">You can reach out via email at hello@portfolio.dev or connect on LinkedIn. I'm currently open to freelance opportunities and full-time roles!</p>
+      </div>
+    </div>
+    
+    <!-- User Message 2 -->
+    <div class="flex gap-3">
+      <div class="w-6 h-6 rounded-full bg-[#233648] flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-xs">person</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm text-white">Tell me about your tech stack.</p>
+      </div>
+    </div>
+    
+    <!-- AI Message 2 -->
+    <div class="flex gap-3">
+      <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-xs text-primary">smart_toy</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm text-[#b0c4de] mb-2">I specialize in the JavaScript ecosystem.</p>
+        <ul class="text-sm text-[#b0c4de] space-y-1 list-disc list-inside">
+          <li>React/Next.js</li>
+          <li>Node.js/Express</li>
+          <li>PostgreSQL/MongoDB</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Quick Buttons -->
+  <div class="px-4 py-2 border-t border-[#324d67] flex gap-2">
+    <button class="px-3 py-1.5 text-xs bg-[#233648] text-[#b0c4de] rounded hover:bg-[#324d67] transition-colors">
+      Generate Cover Letter
+    </button>
+    <button class="px-3 py-1.5 text-xs bg-[#233648] text-[#b0c4de] rounded hover:bg-[#324d67] transition-colors">
+      Explain Code
+    </button>
+  </div>
+  
+  <!-- Input Area -->
+  <div class="p-4 border-t border-[#324d67]">
+    <div class="relative">
+      <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-primary via-syntax-purple to-primary opacity-50 blur-sm"></div>
+      <div class="relative flex items-center bg-editor-bg rounded-lg border border-[#324d67]">
+        <input 
+          type="text" 
+          placeholder="Ask me about my experience..." 
+          class="flex-1 bg-transparent px-3 py-2.5 text-sm text-white placeholder-[#6b7d8f] outline-none"
+        />
+        <button class="p-2 text-primary hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-lg">send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
