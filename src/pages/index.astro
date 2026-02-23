@@ -11,9 +11,49 @@ import BootSequence from '../components/bootup/BootSequence.astro';
   </div>
   
   <script>
-    // Auto-redirect to editor after 4 seconds
-    setTimeout(() => {
-      window.location.href = '/editor';
-    }, 4000);
+    document.addEventListener('DOMContentLoaded', () => {
+      const lines = document.querySelectorAll('.terminal-line');
+      const progressBar = document.querySelector('.progress-fill') as HTMLElement;
+      const progressText = document.querySelector('.progress-percent') as HTMLElement;
+      
+      // Hide all lines initially
+      lines.forEach(line => {
+        (line as HTMLElement).style.opacity = '0';
+      });
+      
+      // Show lines one by one
+      let delay = 0;
+      lines.forEach((line, index) => {
+        if (index < lines.length - 1) { // Skip the last line (active one)
+          setTimeout(() => {
+            (line as HTMLElement).style.transition = 'opacity 0.3s ease';
+            (line as HTMLElement).style.opacity = '1';
+          }, delay);
+          delay += 400;
+        }
+      });
+      
+      // Always show the last line (the active compiling line)
+      setTimeout(() => {
+        const lastLine = lines[lines.length - 1] as HTMLElement;
+        lastLine.style.opacity = '1';
+      }, delay);
+      
+      // Animate progress bar from 0 to 85%
+      setTimeout(() => {
+        if (progressBar) {
+          progressBar.style.width = '0%';
+          setTimeout(() => {
+            progressBar.style.transition = 'width 2s ease-out';
+            progressBar.style.width = '85%';
+          }, 100);
+        }
+      }, 500);
+      
+      // Redirect after 4 seconds
+      setTimeout(() => {
+        window.location.href = '/editor';
+      }, 4000);
+    });
   </script>
 </BaseLayout>

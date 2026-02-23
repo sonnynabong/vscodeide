@@ -42,36 +42,46 @@ import ProgressBar from './ProgressBar.astro';
     
     <!-- Terminal Content -->
     <div class="p-4 sm:p-6 space-y-3 font-mono text-sm">
-      <TerminalLine 
-        icon="terminal" 
-        text="Initializing kernel parameters" 
-        status="ok" 
-      />
-      <TerminalLine 
-        icon="dns" 
-        text="Mounting virtual file system (VFS)" 
-        status="ok" 
-      />
-      <TerminalLine 
-        icon="folder_open" 
-        text="Loading module:" 
-        highlightText="Projects [32mb]" 
-        status="ok" 
-      />
-      <TerminalLine 
-        icon="memory" 
-        text="Allocating memory for" 
-        highlightText="Skills.json" 
-        status="busy" 
-      />
-      <TerminalLine 
-        icon="settings" 
-        text="Compiling UI assets" 
-        status="none" 
-      />
+      <div class="terminal-line">
+        <TerminalLine 
+          icon="terminal" 
+          text="Initializing kernel parameters" 
+          status="ok" 
+        />
+      </div>
+      <div class="terminal-line">
+        <TerminalLine 
+          icon="dns" 
+          text="Mounting virtual file system (VFS)" 
+          status="ok" 
+        />
+      </div>
+      <div class="terminal-line">
+        <TerminalLine 
+          icon="folder_open" 
+          text="Loading module:" 
+          highlightText="Projects [32mb]" 
+          status="ok" 
+        />
+      </div>
+      <div class="terminal-line">
+        <TerminalLine 
+          icon="memory" 
+          text="Allocating memory for" 
+          highlightText="Skills.json" 
+          status="busy" 
+        />
+      </div>
+      <div class="terminal-line">
+        <TerminalLine 
+          icon="settings" 
+          text="Compiling UI assets" 
+          status="none" 
+        />
+      </div>
       
       <!-- Blinking Cursor for Last Line -->
-      <div class="flex items-center gap-2">
+      <div class="terminal-line flex items-center gap-2">
         <span class="text-slate-700 dark:text-slate-300">&gt; Compiling UI assets...</span>
         <span class="w-2 h-4 bg-primary animate-pulse"></span>
       </div>

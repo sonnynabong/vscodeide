@@ -1,31 +1,51 @@
 ---
+interface Props {
+  activeTab?: string;
+}
+const { activeTab = 'Featured.tsx' } = Astro.props;
+
+const tabs = [
+  { name: 'Featured.tsx', icon: 'code', active: true },
+  { name: 'About.js', icon: 'js', active: false, italic: true },
+  { name: 'Skills.json', icon: 'braces', active: false }
+];
 ---
 
-<div class="h-9 bg-sidebar-bg flex items-end overflow-x-auto">
-  <!-- Featured.tsx (active) -->
-  <div class="h-9 min-w-[140px] bg-editor-bg border-t-2 border-primary flex items-center px-3 cursor-pointer group">
-    <span class="material-symbols-outlined text-sm text-syntax-pink mr-2">code</span>
-    <span class="text-sm text-white font-mono">Featured.tsx</span>
-    <button class="ml-auto opacity-0 group-hover:opacity-100 text-[#6b7d8f] hover:text-white transition-opacity">
-      <span class="material-symbols-outlined text-base">close</span>
-    </button>
-  </div>
-  
-  <!-- About.js -->
-  <div class="h-9 min-w-[120px] bg-[#16202a] flex items-center px-3 cursor-pointer group hover:bg-[#1a2631]">
-    <span class="material-symbols-outlined text-sm text-syntax-yellow mr-2">code</span>
-    <span class="text-sm text-[#6b7d8f] font-mono italic">About.js</span>
-    <button class="ml-auto opacity-0 group-hover:opacity-100 text-[#6b7d8f] hover:text-white transition-opacity">
-      <span class="material-symbols-outlined text-base">close</span>
-    </button>
-  </div>
-  
-  <!-- Skills.json -->
-  <div class="h-9 min-w-[120px] bg-[#16202a] flex items-center px-3 cursor-pointer group hover:bg-[#1a2631]">
-    <span class="material-symbols-outlined text-sm text-syntax-purple mr-2">data_object</span>
-    <span class="text-sm text-[#6b7d8f] font-mono">Skills.json</span>
-    <button class="ml-auto opacity-0 group-hover:opacity-100 text-[#6b7d8f] hover:text-white transition-opacity">
-      <span class="material-symbols-outlined text-base">close</span>
-    </button>
-  </div>
+<div class="flex h-9 bg-sidebar-bg overflow-x-auto select-none" id="tab-bar">
+  {tabs.map(tab => (
+    <div 
+      class={`tab-item flex items-center h-full px-3 text-sm min-w-fit cursor-pointer group pr-2 border-r border-[#1e2933] transition-all ${
+        tab.name === activeTab 
+          ? 'bg-editor-bg border-t-2 border-primary text-white' 
+          : 'bg-[#16202a] text-[#92adc9] hover:text-white'
+      }`}
+      data-tab={tab.name}
+    >
+      {tab.icon === 'code' && <span class="material-symbols-outlined text-sm mr-2 text-primary" data-weight="fill">code</span>}
+      {tab.icon === 'js' && <span class="text-syntax-yellow text-[10px] font-bold mr-2">JS</span>}
+      {tab.icon === 'braces' && <span class="text-syntax-purple font-mono text-[10px] font-bold mr-2">{}</span>}
+      <span class={tab.italic ? 'italic' : ''}>{tab.name}</span>
+      <span class="opacity-0 group-hover:opacity-100 hover:bg-[#324d67] rounded p-0.5 text-xs material-symbols-outlined ml-2">close</span>
+    </div>
+  ))}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabItems = document.querySelectorAll('.tab-item');
+    
+    tabItems.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active state from all tabs
+        tabItems.forEach(t => {
+          t.classList.remove('bg-editor-bg', 'border-t-2', 'border-primary', 'text-white');
+          t.classList.add('bg-[#16202a]', 'text-[#92adc9]');
+        });
+        
+        // Add active state to clicked tab
+        tab.classList.remove('bg-[#16202a]', 'text-[#92adc9]');
+        tab.classList.add('bg-editor-bg', 'border-t-2', 'border-primary', 'text-white');
+      });
+    });
+  });
+</script>

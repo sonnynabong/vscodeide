@@ -10,7 +10,7 @@ const { progress } = Astro.props;
   <!-- Header Row -->
   <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-mono">
     <span>Boot Sequence</span>
-    <span>{progress}%</span>
+    <span class="progress-percent">{progress}%</span>
   </div>
   
   <!-- Progress Bar Track with Grid Pattern -->
@@ -20,7 +20,7 @@ const { progress } = Astro.props;
     
     <!-- Blue Fill with Striped Animation -->
     <div 
-      class="h-full bg-gradient-to-r from-blue-600 to-blue-500 transition-all duration-500 ease-out relative overflow-hidden"
+      class="progress-fill h-full bg-gradient-to-r from-blue-600 to-blue-500 transition-all duration-500 ease-out relative overflow-hidden"
       style={`width: ${progress}%`}
     >
       <!-- Striped Animation Overlay -->
