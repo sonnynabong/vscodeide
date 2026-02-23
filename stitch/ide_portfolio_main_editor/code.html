@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IDE Portfolio Main Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922", 
+                        "editor-bg": "#111a22", 
+                        "sidebar-bg": "#0d141c",
+                        "syntax-pink": "#ff79c6",
+                        "syntax-green": "#50fa7b",
+                        "syntax-blue": "#8be9fd",
+                        "syntax-yellow": "#f1fa8c",
+                        "syntax-purple": "#bd93f9",
+                        "syntax-comment": "#6272a4",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    boxShadow: {
+                        "neon": "0 0 5px theme('colors.primary'), 0 0 10px theme('colors.primary')",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111a22; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233648; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #324d67; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 h-screen w-screen overflow-hidden flex flex-col">
+<div class="flex flex-1 overflow-hidden">
+<div class="w-12 flex-none bg-sidebar-bg border-r border-[#324d67] flex flex-col items-center py-3 justify-between z-10">
+<div class="flex flex-col gap-6">
+<button class="text-white hover:text-primary transition-colors relative group">
+<span class="absolute left-0 top-0 bottom-0 w-0.5 bg-primary rounded-r"></span>
+<span class="material-symbols-outlined text-[28px]">folder_copy</span>
+</button>
+<button class="text-[#6b7d8f] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">search</span>
+</button>
+<button class="text-[#6b7d8f] hover:text-white transition-colors relative">
+<span class="material-symbols-outlined text-[28px]">source</span>
+<span class="absolute -right-1 -bottom-1 bg-primary text-[10px] font-bold text-white rounded-full w-4 h-4 flex items-center justify-center">1</span>
+</button>
+<button class="text-[#6b7d8f] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">bug_report</span>
+</button>
+<button class="text-primary hover:text-white transition-colors relative">
+<span class="material-symbols-outlined text-[28px]" data-weight="fill">smart_toy</span>
+</button>
+<button class="text-[#6b7d8f] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">extension</span>
+</button>
+</div>
+<div class="flex flex-col gap-6 mb-2">
+<button class="text-[#6b7d8f] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">account_circle</span>
+</button>
+<button class="text-[#6b7d8f] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">settings</span>
+</button>
+</div>
+</div>
+<div class="w-64 flex-none bg-editor-bg border-r border-[#324d67] flex flex-col hidden md:flex">
+<div class="h-9 px-4 flex items-center justify-between text-[#92adc9] text-xs font-bold tracking-wider uppercase">
+<span>Explorer</span>
+<span class="material-symbols-outlined text-base cursor-pointer hover:text-white">more_horiz</span>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<div class="px-0">
+<div class="flex items-center px-2 py-1 cursor-pointer text-white font-bold text-sm bg-[#233648]/0 hover:bg-[#233648]/50">
+<span class="material-symbols-outlined text-base mr-1 transform rotate-90">arrow_right</span>
+<span class="truncate">PORTFOLIO-V1</span>
+</div>
+<div class="pl-2">
+<div class="flex items-center px-4 py-1 cursor-pointer text-[#92adc9] hover:text-white hover:bg-[#233648]/50 text-sm">
+<span class="material-symbols-outlined text-base mr-1">arrow_right</span>
+<span class="material-symbols-outlined text-base mr-2 text-[#92adc9]">folder</span>
+<span class="truncate">.github</span>
+</div>
+<div class="flex items-center px-4 py-1 cursor-pointer text-white hover:bg-[#233648]/50 text-sm">
+<span class="material-symbols-outlined text-base mr-1 transform rotate-90">arrow_right</span>
+<span class="material-symbols-outlined text-base mr-2 text-syntax-blue">folder</span>
+<span class="truncate">src</span>
+</div>
+<div class="pl-6">
+<div class="flex items-center px-4 py-1 cursor-pointer text-white hover:bg-[#233648]/50 text-sm">
+<span class="material-symbols-outlined text-base mr-1 transform rotate-90">arrow_right</span>
+<span class="material-symbols-outlined text-base mr-2 text-syntax-blue">folder</span>
+<span class="truncate">Projects</span>
+</div>
+<div class="pl-6">
+<div class="flex items-center px-4 py-1 cursor-pointer bg-[#233648] text-white text-sm border-l-2 border-primary">
+<span class="material-symbols-outlined text-base mr-2 text-primary" data-weight="fill">code</span>
+<span class="truncate">Featured.tsx</span>
+<span class="ml-auto text-xs text-[#92adc9]">M</span>
+</div>
+<div class="flex items-center px-4 py-1 cursor-pointer text-[#92adc9] hover:text-white hover:bg-[#233648]/50 text-sm border-l-2 border-transparent">
+<span class="material-symbols-outlined text-base mr-2 text-primary" data-weight="fill">code</span>
+<span class="truncate">Archival.tsx</span>
+</div>
+</div>
+<div class="flex items-center px-4 py-1 cursor-pointer text-[#92adc9] hover:text-white hover:bg-[#233648]/50 text-sm">
+<span class="text-syntax-yellow text-xs font-bold mr-2 w-4 text-center">JS</span>
+<span class="truncate">About.js</span>
+</div>
+</div>
+<div class="flex items-center px-4 py-1 cursor-pointer text-[#92adc9] hover:text-white hover:bg-[#233648]/50 text-sm">
+<span class="text-syntax-purple font-mono text-xs font-bold mr-2 w-4 text-center">{}</span>
+<span class="truncate">Skills.json</span>
+</div>
+<div class="flex items-center px-4 py-1 cursor-pointer text-[#92adc9] hover:text-white hover:bg-[#233648]/50 text-sm">
+<span class="material-symbols-outlined text-base mr-2 text-red-400">picture_as_pdf</span>
+<span class="truncate">Resume.pdf</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-1 flex-col bg-editor-bg overflow-hidden relative">
+<div class="flex h-9 bg-sidebar-bg overflow-x-auto select-none">
+<div class="flex items-center h-full px-3 bg-editor-bg border-t-2 border-primary text-white text-sm min-w-fit cursor-pointer group pr-2">
+<span class="material-symbols-outlined text-sm mr-2 text-primary" data-weight="fill">code</span>
+<span class="mr-2">Featured.tsx</span>
+<span class="opacity-0 group-hover:opacity-100 hover:bg-[#324d67] rounded p-0.5 text-xs material-symbols-outlined">close</span>
+</div>
+<div class="flex items-center h-full px-3 bg-[#16202a] text-[#92adc9] hover:text-white text-sm min-w-fit cursor-pointer border-r border-[#1e2933] group pr-2">
+<span class="text-syntax-yellow text-[10px] font-bold mr-2">JS</span>
+<span class="mr-2 italic">About.js</span>
+<span class="opacity-0 group-hover:opacity-100 hover:bg-[#324d67] rounded p-0.5 text-xs material-symbols-outlined">close</span>
+</div>
+<div class="flex items-center h-full px-3 bg-[#16202a] text-[#92adc9] hover:text-white text-sm min-w-fit cursor-pointer border-r border-[#1e2933] group pr-2">
+<span class="text-syntax-purple font-mono text-[10px] font-bold mr-2">{}</span>
+<span class="mr-2">Skills.json</span>
+<span class="opacity-0 group-hover:opacity-100 hover:bg-[#324d67] rounded p-0.5 text-xs material-symbols-outlined">close</span>
+</div>
+</div>
+<div class="h-8 flex items-center px-4 bg-editor-bg sticky top-0 z-20 shadow-sm border-b border-[#1e2933]">
+<div class="flex items-center gap-1 text-sm">
+<span class="text-[#92adc9] hover:text-white cursor-pointer">src</span>
+<span class="material-symbols-outlined text-base text-[#6b7d8f]">chevron_right</span>
+<span class="text-[#92adc9] hover:text-white cursor-pointer">Projects</span>
+<span class="material-symbols-outlined text-base text-[#6b7d8f]">chevron_right</span>
+<span class="text-white font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-primary" data-weight="fill">code</span>
+                    Featured.tsx
+                </span>
+</div>
+<div class="ml-auto flex items-center gap-3">
+<div class="flex items-center text-[#92adc9] gap-1 text-xs">
+<span class="w-2 h-2 rounded-full bg-syntax-yellow"></span>
+<span>3 problems</span>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto font-mono text-sm leading-6 relative bg-editor-bg" style="font-feature-settings: 'liga' on, 'calt' on;">
+<div class="flex min-h-full">
+<div class="w-12 flex-none flex flex-col text-right pr-4 text-[#4a5f78] select-none bg-editor-bg pt-4">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
+</div>
+<div class="flex-1 pt-4 pr-4 pb-20">
+<div>
+<span class="text-syntax-pink">import</span> <span class="text-white">React</span> <span class="text-syntax-pink">from</span> <span class="text-syntax-green">'react'</span><span class="text-white">;</span>
+</div>
+<div>
+<span class="text-syntax-pink">import</span> <span class="text-syntax-yellow">{</span> <span class="text-white">Card</span><span class="text-white">,</span> <span class="text-white">TechStack</span><span class="text-white">,</span> <span class="text-white">Description</span> <span class="text-syntax-yellow">}</span> <span class="text-syntax-pink">from</span> <span class="text-syntax-green">'./components'</span><span class="text-white">;</span>
+</div>
+<div class="h-6"></div> 
+<div>
+<span class="text-syntax-pink">interface</span> <span class="text-syntax-blue">ProjectProps</span> <span class="text-syntax-yellow">{</span>
+</div>
+<div class="pl-4">
+<span class="text-white">featured</span><span class="text-syntax-pink">:</span> <span class="text-syntax-blue">boolean</span><span class="text-white">;</span>
+</div>
+<div>
+<span class="text-syntax-yellow">}</span>
+</div>
+<div class="h-6"></div>
+<div>
+<span class="text-syntax-pink">export</span> <span class="text-syntax-pink">const</span> <span class="text-syntax-blue">FeaturedProject</span> <span class="text-white">=</span> <span class="text-syntax-yellow">(</span><span class="text-white">{</span> <span class="text-white">featured</span> <span class="text-white">}</span><span class="text-syntax-pink">:</span> <span class="text-syntax-blue">ProjectProps</span><span class="text-syntax-yellow">)</span> <span class="text-syntax-pink">=&gt;</span> <span class="text-syntax-yellow">{</span>
+</div>
+<div class="pl-4">
+<span class="text-syntax-pink">const</span> <span class="text-white">projectTitle</span> <span class="text-white">=</span> <span class="text-syntax-green">"E-Commerce API V2"</span><span class="text-white">;</span>
+</div>
+<div class="pl-4">
+<span class="text-syntax-pink">const</span> <span class="text-white">metrics</span> <span class="text-white">=</span> <span class="text-syntax-purple">{</span>
+</div>
+<div class="pl-8">
+<span class="text-white">requests</span><span class="text-syntax-pink">:</span> <span class="text-syntax-purple">10000</span><span class="text-white">,</span>
+</div>
+<div class="pl-8">
+<span class="text-white">uptime</span><span class="text-syntax-pink">:</span> <span class="text-syntax-green">"99.99%"</span>
+</div>
+<div class="pl-4">
+<span class="text-syntax-purple">}</span><span class="text-white">;</span>
+</div>
+<div class="h-6"></div>
+<div class="pl-4">
+<span class="text-syntax-pink">return</span> <span class="text-syntax-purple">(</span>
+</div>
+<div class="pl-8">
+<span class="text-white">&lt;</span><span class="text-syntax-blue">Card</span> <span class="text-syntax-purple">title</span><span class="text-white">=</span><span class="text-syntax-yellow">{</span><span class="text-white">projectTitle</span><span class="text-syntax-yellow">}</span> <span class="text-syntax-purple">isLive</span><span class="text-white">=</span><span class="text-syntax-yellow">{</span><span class="text-syntax-pink">true</span><span class="text-syntax-yellow">}</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-12">
+<span class="text-syntax-comment">// Core technologies used in architecture</span>
+</div>
+<div class="pl-12">
+<span class="text-white">&lt;</span><span class="text-syntax-blue">TechStack</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-16 text-white">
+                        Node.js, GraphQL, Redis, Docker
+                    </div>
+<div class="pl-12">
+<span class="text-white">&lt;/</span><span class="text-syntax-blue">TechStack</span><span class="text-white">&gt;</span>
+</div>
+<div class="h-1"></div>
+<div class="pl-12">
+<span class="text-white">&lt;</span><span class="text-syntax-blue">Description</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-16 text-syntax-green">
+                        "Architected a scalable backend handling high concurrency. 
+                    </div>
+<div class="pl-16 text-syntax-green">
+                        Implemented rate limiting and caching strategies."
+                    </div>
+<div class="pl-12">
+<span class="text-white">&lt;/</span><span class="text-syntax-blue">Description</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-12 pt-2">
+<span class="text-white">&lt;</span><span class="text-syntax-blue">Button</span> <span class="text-syntax-purple">onClick</span><span class="text-white">=</span><span class="text-syntax-yellow">{</span><span class="text-syntax-pink">()</span> <span class="text-syntax-pink">=&gt;</span> <span class="text-white">openDemo()</span><span class="text-syntax-yellow">}</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-16 py-2">
+<button class="flex items-center gap-2 bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary px-4 py-1.5 rounded text-xs font-bold transition-all transform hover:scale-105">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+                                View Deployment
+                             </button>
+</div>
+<div class="pl-12">
+<span class="text-white">&lt;/</span><span class="text-syntax-blue">Button</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-8">
+<span class="text-white">&lt;/</span><span class="text-syntax-blue">Card</span><span class="text-white">&gt;</span>
+</div>
+<div class="pl-4">
+<span class="text-syntax-purple">)</span><span class="text-white">;</span>
+</div>
+<div>
+<span class="text-syntax-yellow">}</span><span class="text-white">;</span> <span class="animate-pulse inline-block w-2.5 h-5 align-middle bg-primary ml-1"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-32 flex-none border-t border-[#324d67] bg-editor-bg flex flex-col">
+<div class="flex items-center justify-between px-4 py-2 bg-sidebar-bg">
+<div class="flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-[#6b7d8f]">
+<span class="text-white border-b-2 border-primary pb-1">Terminal</span>
+<span class="hover:text-white cursor-pointer pb-1">Output</span>
+<span class="hover:text-white cursor-pointer pb-1">Debug Console</span>
+<span class="hover:text-white cursor-pointer pb-1">Problems</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">add</span>
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">delete</span>
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">expand_less</span>
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">close</span>
+</div>
+</div>
+<div class="flex-1 p-4 font-mono text-sm overflow-y-auto">
+<div class="flex flex-col gap-1">
+<div class="flex gap-2">
+<span class="text-syntax-green">user@portfolio</span>:<span class="text-syntax-blue">~/src/Projects</span>$ <span class="text-white">git status</span>
+</div>
+<div class="text-[#92adc9]">On branch <span class="text-syntax-purple">main</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-80 flex-none bg-sidebar-bg border-l border-[#324d67] flex flex-col shadow-2xl z-20">
+<div class="h-9 px-4 flex items-center justify-between bg-editor-bg border-b border-[#324d67]">
+<span class="text-xs font-bold tracking-wider uppercase text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-weight="fill">smart_toy</span>
+                Portfolio AI
+            </span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">refresh</span>
+<span class="material-symbols-outlined text-[#6b7d8f] hover:text-white text-base cursor-pointer">close</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 font-mono text-sm">
+<div class="flex flex-col gap-1 items-end">
+<div class="text-[10px] text-[#6b7d8f] uppercase tracking-wider font-bold">You</div>
+<div class="bg-[#233648] text-white p-3 rounded-l-xl rounded-br-xl max-w-[90%] border border-[#324d67]">
+                    How do I contact you?
+                </div>
+</div>
+<div class="flex flex-col gap-1 items-start">
+<div class="text-[10px] text-primary uppercase tracking-wider font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] animate-pulse">smart_toy</span> AI Assistant
+                </div>
+<div class="text-[#92adc9] p-3 rounded-r-xl rounded-bl-xl max-w-[95%] border border-[#324d67]/50 bg-editor-bg shadow-sm">
+<p class="mb-2">You can reach out via email at <span class="text-syntax-green">hello@portfolio.dev</span> or connect on <span class="text-syntax-blue">LinkedIn</span>.</p>
+<p>I'm currently open to freelance opportunities and full-time roles!</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 items-end mt-2">
+<div class="text-[10px] text-[#6b7d8f] uppercase tracking-wider font-bold">You</div>
+<div class="bg-[#233648] text-white p-3 rounded-l-xl rounded-br-xl max-w-[90%] border border-[#324d67]">
+                    Tell me about your tech stack.
+                </div>
+</div>
+<div class="flex flex-col gap-1 items-start">
+<div class="text-[10px] text-primary uppercase tracking-wider font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">smart_toy</span> AI Assistant
+                </div>
+<div class="text-[#92adc9] p-3 rounded-r-xl rounded-bl-xl max-w-[95%] border border-[#324d67]/50 bg-editor-bg shadow-sm">
+<p>I specialize in the <span class="text-syntax-yellow">JavaScript ecosystem</span>.</p>
+<ul class="list-disc ml-4 mt-2 space-y-1">
+<li><span class="text-white">React / Next.js</span> for frontend</li>
+<li><span class="text-white">Node.js / Express</span> for backend</li>
+<li><span class="text-white">PostgreSQL / MongoDB</span> for data</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="p-4 bg-editor-bg border-t border-[#324d67]">
+<div class="relative group">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-syntax-purple rounded opacity-75 group-hover:opacity-100 blur transition duration-200"></div>
+<div class="relative flex items-center bg-sidebar-bg rounded border border-primary/50 shadow-neon">
+<input class="w-full bg-transparent border-none text-white text-sm px-3 py-2 focus:ring-0 placeholder-[#4a5f78] font-mono" placeholder="Ask me about my experience..." type="text"/>
+<button class="p-2 text-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">send</span>
+</button>
+</div>
+</div>
+<div class="mt-2 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+<button class="whitespace-nowrap px-2 py-1 bg-[#233648] hover:bg-[#324d67] text-[10px] text-[#92adc9] rounded border border-[#324d67] transition-colors">Generate Cover Letter</button>
+<button class="whitespace-nowrap px-2 py-1 bg-[#233648] hover:bg-[#324d67] text-[10px] text-[#92adc9] rounded border border-[#324d67] transition-colors">Explain Code</button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-6 bg-primary flex-none flex items-center justify-between px-3 text-white text-[11px] font-medium z-30 select-none">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 hover:bg-white/20 px-1 rounded cursor-pointer">
+<span class="material-symbols-outlined text-[12px]">source</span>
+<span>main*</span>
+</div>
+<div class="flex items-center gap-1 hover:bg-white/20 px-1 rounded cursor-pointer">
+<span class="material-symbols-outlined text-[12px]">sync</span>
+<span>0</span>
+<span class="material-symbols-outlined text-[12px] rotate-180">arrow_right_alt</span>
+<span>0</span>
+</div>
+<div class="flex items-center gap-1 hover:bg-white/20 px-1 rounded cursor-pointer hidden sm:flex">
+<span class="material-symbols-outlined text-[12px]">error</span>
+<span>0</span>
+<span class="material-symbols-outlined text-[12px]">warning</span>
+<span>0</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hover:bg-white/20 px-1 rounded cursor-pointer hidden sm:block">Ln 27, Col 52</div>
+<div class="hover:bg-white/20 px-1 rounded cursor-pointer hidden sm:block">UTF-8</div>
+<div class="hover:bg-white/20 px-1 rounded cursor-pointer hidden sm:block">LF</div>
+<div class="hover:bg-white/20 px-1 rounded cursor-pointer flex items-center gap-1">
+<span class="text-xs font-bold">{}</span>
+            TypeScript React
+        </div>
+<div class="hover:bg-white/20 px-1 rounded cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">notifications</span>
+</div>
+</div>
+</div>
+
+</body></html>

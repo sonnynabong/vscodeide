@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IDE Portfolio Bootup</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#050a10", // Adjusted slightly darker for terminal feel while keeping theme coherence
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'cursor-blink': 'blink 1s step-end infinite',
+                    },
+                    keyframes: {
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for terminal look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050a10; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155; 
+        }
+        
+        /* CRT Scanline effect */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            position: absolute;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col overflow-hidden relative selection:bg-primary selection:text-white">
+<!-- CRT Overlay Effect -->
+<div class="scanlines opacity-20 pointer-events-none fixed inset-0 z-50"></div>
+<div class="relative flex h-full grow flex-col justify-center items-center p-4 md:p-8 lg:p-12 z-10">
+<!-- Main Terminal Container -->
+<div class="layout-content-container flex flex-col w-full max-w-[800px] gap-8 relative">
+<!-- ASCII Art Header -->
+<div class="flex flex-col items-center justify-center text-primary/80 dark:text-primary animate-pulse-slow">
+<pre class="font-mono text-[10px] sm:text-xs md:text-sm leading-[1.1] text-center select-none whitespace-pre">   ____  _____  ___    ____  _____ __     __
+  |  _ \| ____|/ _ \  |  _ \| ____|\ \   / /
+  | |_) |  _| | | | | | |_) |  _|   \ \ / / 
+  |  __/| |___| |_| | |  __/| |___   \ V /  
+  |_|   |_____|\___/  |_|   |_____|   \_/   
+                </pre>
+<div class="mt-4 flex items-center gap-3">
+<span class="h-px w-8 bg-primary/40"></span>
+<h1 class="text-slate-900 dark:text-white tracking-[0.2em] text-lg md:text-xl font-bold font-mono">SYSTEM v2.0.4</h1>
+<span class="h-px w-8 bg-primary/40"></span>
+</div>
+</div>
+<!-- Terminal Log Window -->
+<div class="w-full bg-slate-100/5 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 rounded-lg backdrop-blur-sm overflow-hidden flex flex-col shadow-2xl shadow-primary/5">
+<!-- Window Header -->
+<div class="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50">
+<div class="flex gap-2">
+<div class="size-3 rounded-full bg-red-500/80"></div>
+<div class="size-3 rounded-full bg-yellow-500/80"></div>
+<div class="size-3 rounded-full bg-green-500/80"></div>
+</div>
+<div class="text-[10px] uppercase tracking-widest text-slate-500 font-mono">root@developer-portfolio:~</div>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</div>
+<!-- Log Content -->
+<div class="p-6 font-mono text-sm md:text-base flex flex-col gap-4 min-h-[300px]">
+<!-- Line 1 -->
+<div class="flex items-start gap-3 group">
+<span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg">terminal</span>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<span class="text-slate-700 dark:text-slate-300">&gt; Initializing kernel parameters...</span>
+<span class="text-green-500 text-xs font-bold px-2 py-0.5 bg-green-500/10 rounded">[ OK ]</span>
+</div>
+</div>
+<!-- Line 2 -->
+<div class="flex items-start gap-3 group">
+<span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg">dns</span>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<span class="text-slate-700 dark:text-slate-300">&gt; Mounting virtual file system (VFS)...</span>
+<span class="text-green-500 text-xs font-bold px-2 py-0.5 bg-green-500/10 rounded">[ OK ]</span>
+</div>
+</div>
+<!-- Line 3 -->
+<div class="flex items-start gap-3 group">
+<span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg">folder_open</span>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<span class="text-slate-700 dark:text-slate-300">&gt; Loading module: <span class="text-primary">Projects</span> [32mb]...</span>
+<span class="text-green-500 text-xs font-bold px-2 py-0.5 bg-green-500/10 rounded">[ OK ]</span>
+</div>
+</div>
+<!-- Line 4 -->
+<div class="flex items-start gap-3 group">
+<span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg">memory</span>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<span class="text-slate-700 dark:text-slate-300">&gt; Allocating memory for <span class="text-primary">Skills.json</span>...</span>
+<span class="text-yellow-500 text-xs font-bold px-2 py-0.5 bg-yellow-500/10 rounded animate-pulse">[ BUSY ]</span>
+</div>
+</div>
+<!-- Line 5 (Active) -->
+<div class="flex items-start gap-3 mt-2 border-t border-slate-800 pt-4">
+<span class="text-primary mt-0.5 shrink-0 material-symbols-outlined text-lg animate-spin">settings</span>
+<div class="flex-1">
+<span class="text-white">&gt; Compiling UI assets <span class="animate-cursor-blink inline-block w-2 h-4 bg-primary align-middle ml-1"></span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Status Bar -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-end px-1">
+<div class="flex flex-col">
+<p class="text-slate-400 dark:text-slate-400 text-xs font-mono uppercase tracking-wider mb-1">Boot Sequence</p>
+<p class="text-slate-900 dark:text-white text-xl font-mono font-bold">85%</p>
+</div>
+<p class="text-primary text-xs font-mono mb-1 animate-pulse">EST. TIME REMAINING: 0.4s</p>
+</div>
+<!-- Progress Bar -->
+<div class="h-6 w-full bg-slate-200 dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 p-1 relative overflow-hidden">
+<!-- Grid background for progress bar -->
+<div class="absolute inset-0 w-full h-full opacity-10" style="background-image: linear-gradient(#137fec 1px, transparent 1px), linear-gradient(90deg, #137fec 1px, transparent 1px); background-size: 10px 10px;"></div>
+<div class="h-full bg-primary relative rounded-sm transition-all duration-300 ease-out flex items-center justify-end pr-2 overflow-hidden" style="width: 85%;">
+<!-- Striped pattern on the bar itself -->
+<div class="absolute inset-0 w-full h-full" style="background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent); background-size: 1rem 1rem;"></div>
+</div>
+</div>
+<div class="flex justify-between px-1 mt-1">
+<p class="text-slate-500 dark:text-slate-500 text-[10px] font-mono">Mem: 64GB / Threads: 12</p>
+<p class="text-slate-500 dark:text-slate-500 text-[10px] font-mono">Build: 2023.10.24-RC2</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>
