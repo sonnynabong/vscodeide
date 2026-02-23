@@ -1,0 +1,47 @@
+---
+export interface Token {
+  type: 'keyword' | 'type' | 'string' | 'function' | 'variable' | 'operator' | 'comment' | 'tag' | 'plain' | 'number';
+  content: string;
+}
+
+export interface Props {
+  lineNumber: number;
+  tokens: Token[];
+  indent?: number; // indentation level (0, 1, 2, 3, 4) - each level = 4 spaces/1rem
+}
+
+const { lineNumber, tokens, indent = 0 } = Astro.props;
+
+function getColorClass(type: Token['type']): string {
+  switch (type) {
+    case 'keyword':
+    case 'operator':
+      return 'text-syntax-pink';
+    case 'type':
+    case 'tag':
+      return 'text-syntax-blue';
+    case 'string':
+      return 'text-syntax-green';
+    case 'function':
+      return 'text-syntax-yellow';
+    case 'variable':
+    case 'plain':
+      return 'text-white';
+    case 'comment':
+      return 'text-syntax-comment';
+    case 'number':
+      return 'text-syntax-purple';
+    default:
+      return 'text-white';
+  }
+}
+---
+
+<div class="flex">
+  <span class="w-12 text-right pr-4 text-[#4a5f78] select-none">{lineNumber}</span>
+  <div class="flex-1" style={`padding-left: ${(indent || 0) * 1}rem`}>
+    {tokens.map(token => (
+      <span class={getColorClass(token.type)}>{token.content}</span>
+    ))}
+  </div>
+</div>

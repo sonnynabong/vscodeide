@@ -1,40 +1,433 @@
 ---
+import CodeLine from './CodeLine.astro';
+import type { Token } from './CodeLine.astro';
+
+interface LineData {
+  lineNumber: number;
+  tokens: Token[];
+  indent?: number;
+}
+
+const lines: LineData[] = [
+  // Line 1: import React from 'react';
+  {
+    lineNumber: 1,
+    tokens: [
+      { type: 'keyword', content: 'import' },
+      { type: 'plain', content: ' ' },
+      { type: 'type', content: 'React' },
+      { type: 'plain', content: ' ' },
+      { type: 'keyword', content: 'from' },
+      { type: 'plain', content: " " },
+      { type: 'string', content: "'react'" },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 0,
+  },
+  // Line 2: import { Card, TechStack, Description } from './components';
+  {
+    lineNumber: 2,
+    tokens: [
+      { type: 'keyword', content: 'import' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '{' },
+      { type: 'plain', content: ' ' },
+      { type: 'function', content: 'Card' },
+      { type: 'operator', content: ',' },
+      { type: 'plain', content: ' ' },
+      { type: 'function', content: 'TechStack' },
+      { type: 'operator', content: ',' },
+      { type: 'plain', content: ' ' },
+      { type: 'function', content: 'Description' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '}' },
+      { type: 'plain', content: ' ' },
+      { type: 'keyword', content: 'from' },
+      { type: 'plain', content: " " },
+      { type: 'string', content: "'./components'" },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 0,
+  },
+  // Line 3: empty
+  {
+    lineNumber: 3,
+    tokens: [],
+    indent: 0,
+  },
+  // Line 4: interface ProjectProps {
+  {
+    lineNumber: 4,
+    tokens: [
+      { type: 'keyword', content: 'interface' },
+      { type: 'plain', content: ' ' },
+      { type: 'type', content: 'ProjectProps' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '{' },
+    ],
+    indent: 0,
+  },
+  // Line 5:   featured: boolean;
+  {
+    lineNumber: 5,
+    tokens: [
+      { type: 'variable', content: 'featured' },
+      { type: 'operator', content: ':' },
+      { type: 'plain', content: ' ' },
+      { type: 'type', content: 'boolean' },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 1,
+  },
+  // Line 6: }
+  {
+    lineNumber: 6,
+    tokens: [
+      { type: 'operator', content: '}' },
+    ],
+    indent: 0,
+  },
+  // Line 7: empty
+  {
+    lineNumber: 7,
+    tokens: [],
+    indent: 0,
+  },
+  // Line 8: export const FeaturedProject = ({ featured }: ProjectProps) => {
+  {
+    lineNumber: 8,
+    tokens: [
+      { type: 'keyword', content: 'export' },
+      { type: 'plain', content: ' ' },
+      { type: 'keyword', content: 'const' },
+      { type: 'plain', content: ' ' },
+      { type: 'function', content: 'FeaturedProject' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '=' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '(' },
+      { type: 'operator', content: '{' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'featured' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '}' },
+      { type: 'operator', content: ':' },
+      { type: 'plain', content: ' ' },
+      { type: 'type', content: 'ProjectProps' },
+      { type: 'operator', content: ')' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '=>' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '{' },
+    ],
+    indent: 0,
+  },
+  // Line 9:   const projectTitle = "E-Commerce API V2";
+  {
+    lineNumber: 9,
+    tokens: [
+      { type: 'keyword', content: 'const' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'projectTitle' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '=' },
+      { type: 'plain', content: ' ' },
+      { type: 'string', content: '"E-Commerce API V2"' },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 1,
+  },
+  // Line 10:   const metrics = {
+  {
+    lineNumber: 10,
+    tokens: [
+      { type: 'keyword', content: 'const' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'metrics' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '=' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '{' },
+    ],
+    indent: 1,
+  },
+  // Line 11:     requests: 10000,
+  {
+    lineNumber: 11,
+    tokens: [
+      { type: 'variable', content: 'requests' },
+      { type: 'operator', content: ':' },
+      { type: 'plain', content: ' ' },
+      { type: 'number', content: '10000' },
+      { type: 'operator', content: ',' },
+    ],
+    indent: 2,
+  },
+  // Line 12:     uptime: "99.99%"
+  {
+    lineNumber: 12,
+    tokens: [
+      { type: 'variable', content: 'uptime' },
+      { type: 'operator', content: ':' },
+      { type: 'plain', content: ' ' },
+      { type: 'string', content: '"99.99%"' },
+    ],
+    indent: 2,
+  },
+  // Line 13:   };
+  {
+    lineNumber: 13,
+    tokens: [
+      { type: 'operator', content: '}' },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 1,
+  },
+  // Line 14: empty
+  {
+    lineNumber: 14,
+    tokens: [],
+    indent: 1,
+  },
+  // Line 15:   return (
+  {
+    lineNumber: 15,
+    tokens: [
+      { type: 'keyword', content: 'return' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '(' },
+    ],
+    indent: 1,
+  },
+  // Line 16:     <Card title={projectTitle} isLive={true}>
+  {
+    lineNumber: 16,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'Card' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'title' },
+      { type: 'operator', content: '=' },
+      { type: 'operator', content: '{' },
+      { type: 'variable', content: 'projectTitle' },
+      { type: 'operator', content: '}' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'isLive' },
+      { type: 'operator', content: '=' },
+      { type: 'operator', content: '{' },
+      { type: 'keyword', content: 'true' },
+      { type: 'operator', content: '}' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 2,
+  },
+  // Line 17:       // Core technologies used in architecture
+  {
+    lineNumber: 17,
+    tokens: [
+      { type: 'comment', content: '// Core technologies used in architecture' },
+    ],
+    indent: 3,
+  },
+  // Line 18:       <TechStack>
+  {
+    lineNumber: 18,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'TechStack' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 19:         Node.js, GraphQL, Redis, Docker
+  {
+    lineNumber: 19,
+    tokens: [
+      { type: 'plain', content: 'Node.js, GraphQL, Redis, Docker' },
+    ],
+    indent: 4,
+  },
+  // Line 20:       </TechStack>
+  {
+    lineNumber: 20,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'TechStack' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 21:       <Description>
+  {
+    lineNumber: 21,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'Description' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 22:         "Architected a scalable backend handling high concurrency.
+  {
+    lineNumber: 22,
+    tokens: [
+      { type: 'string', content: '"Architected a scalable backend handling high concurrency.' },
+    ],
+    indent: 4,
+  },
+  // Line 23:         Implemented rate limiting and caching strategies."
+  {
+    lineNumber: 23,
+    tokens: [
+      { type: 'string', content: 'Implemented rate limiting and caching strategies."' },
+    ],
+    indent: 4,
+  },
+  // Line 24:       </Description>
+  {
+    lineNumber: 24,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'Description' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 25:       <Button onClick={() => openDemo()}>
+  {
+    lineNumber: 25,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'Button' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'onClick' },
+      { type: 'operator', content: '=' },
+      { type: 'operator', content: '{' },
+      { type: 'operator', content: '(' },
+      { type: 'operator', content: ')' },
+      { type: 'plain', content: ' ' },
+      { type: 'operator', content: '=>' },
+      { type: 'plain', content: ' ' },
+      { type: 'function', content: 'openDemo' },
+      { type: 'operator', content: '(' },
+      { type: 'operator', content: ')' },
+      { type: 'operator', content: '}' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 26:         <button class="flex items-center gap-2 bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary px-4 py-1.5 rounded text-xs font-bold transition-all transform hover:scale-105">
+  {
+    lineNumber: 26,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'button' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'class' },
+      { type: 'operator', content: '=' },
+      { type: 'string', content: '"flex items-center gap-2 bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary px-4 py-1.5 rounded text-xs font-bold transition-all transform hover:scale-105"' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 4,
+  },
+  // Line 27:           <span class="material-symbols-outlined text-sm">rocket_launch</span>
+  {
+    lineNumber: 27,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'tag', content: 'span' },
+      { type: 'plain', content: ' ' },
+      { type: 'variable', content: 'class' },
+      { type: 'operator', content: '=' },
+      { type: 'string', content: '"material-symbols-outlined text-sm"' },
+      { type: 'operator', content: '>' },
+      { type: 'plain', content: 'rocket_launch' },
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'span' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 5,
+  },
+  // Line 28:           View Deployment
+  {
+    lineNumber: 28,
+    tokens: [
+      { type: 'plain', content: 'View Deployment' },
+    ],
+    indent: 5,
+  },
+  // Line 29:         </button>
+  {
+    lineNumber: 29,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'button' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 4,
+  },
+  // Line 30:       </Button>
+  {
+    lineNumber: 30,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'Button' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 3,
+  },
+  // Line 31:     </Card>
+  {
+    lineNumber: 31,
+    tokens: [
+      { type: 'operator', content: '<' },
+      { type: 'operator', content: '/' },
+      { type: 'tag', content: 'Card' },
+      { type: 'operator', content: '>' },
+    ],
+    indent: 2,
+  },
+  // Line 32:   );
+  {
+    lineNumber: 32,
+    tokens: [
+      { type: 'operator', content: ')' },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 1,
+  },
+  // Line 33: };
+  {
+    lineNumber: 33,
+    tokens: [
+      { type: 'operator', content: '}' },
+      { type: 'operator', content: ';' },
+    ],
+    indent: 0,
+  },
+];
 ---
 
 <div class="flex-1 bg-editor-bg flex overflow-hidden font-mono text-sm">
-  <!-- Line Numbers -->
-  <div class="w-12 flex-shrink-0 text-right pr-3 py-4 text-[#4a5f78] select-none border-r border-[#233648]">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
-    <div>5</div>
-    <div>6</div>
-    <div>7</div>
-    <div>8</div>
-    <div>9</div>
-    <div>10</div>
-    <div>11</div>
-    <div>12</div>
-    <div>13</div>
-    <div>14</div>
-    <div>15</div>
-    <div>16</div>
-    <div>17</div>
-    <div>18</div>
-    <div>19</div>
-    <div>20</div>
-    <div>21</div>
-    <div>22</div>
-    <div>23</div>
-    <div>24</div>
-    <div>25</div>
-    <div>26</div>
-    <div>27</div>
-  </div>
-  
   <!-- Code Content Area -->
-  <div class="flex-1 p-4 overflow-auto">
-    <pre class="text-[#6b7d8f]">// Code content will be added in next task</pre>
+  <div class="flex-1 py-4 overflow-auto">
+    {lines.map((line) => (
+      <CodeLine 
+        lineNumber={line.lineNumber} 
+        tokens={line.tokens} 
+        indent={line.indent} 
+      />
+    ))}
+    <div class="flex">
+      <span class="w-12 text-right pr-4 text-[#4a5f78] select-none">34</span>
+      <div class="flex-1">
+        <span class="animate-pulse inline-block w-2.5 h-5 align-middle bg-primary ml-1"></span>
+      </div>
+    </div>
   </div>
 </div>
