@@ -23,7 +23,9 @@ import StatusBar from '../components/editor/StatusBar.astro';
   <div id="ide-content" class="fixed inset-0 z-0 opacity-0 transition-opacity duration-700 ease-out" style="display: none;">
     <div class="flex h-screen w-screen overflow-hidden bg-background-dark">
       <ActivityBar />
-      <Sidebar />
+      <div id="sidebar" class="hidden lg:block">
+        <Sidebar />
+      </div>
       <div class="flex flex-col flex-1 min-w-0">
         <TabBar />
         <Breadcrumb />
@@ -32,7 +34,9 @@ import StatusBar from '../components/editor/StatusBar.astro';
             <CodeEditor />
             <Terminal />
           </div>
-          <AIPanel />
+          <div class="hidden xl:block">
+            <AIPanel />
+          </div>
         </div>
       </div>
     </div>
@@ -99,6 +103,16 @@ import StatusBar from '../components/editor/StatusBar.astro';
           ideContent.style.opacity = '1';
         }
       }, 4000);
+
+      // Mobile menu toggle for sidebar
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      
+      if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('hidden');
+        });
+      }
     });
   </script>
 </BaseLayout>
